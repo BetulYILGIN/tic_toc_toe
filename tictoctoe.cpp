@@ -2,46 +2,47 @@
  
 #define SIZE 3       
  
-void print_game(void);
-int check_status(void);
+void oyun(void);
+int kontrol(void);
  
-int a[SIZE][SIZE] = {0};
+int a [SIZE][SIZE] = {0};
  
 int main()
 {
-   int player, choice, i, j;
-   int result;
+   int oyuncu, secim, i, j;
+   int sonuc;
+
  
-   player = 1;
-   while ((result = check_status()) == 0) {
-      print_game();
-      printf("oyuncu: %d, seçiminizi yapin: [%d-%d]", player, 1, SIZE * SIZE);
+   oyuncu = 1;
+   while ((sonuc = kontrol()) == 0) {
+      oyun();
+      printf("oyuncu: %d, seciminizi yapin: [%d-%d]", oyuncu, 1, SIZE * SIZE);
       do {
-         scanf("%d", &choice);
+         scanf("%d", &secim);
          while (getchar() != '\n')   
             ;
-         j = choice % SIZE - 1;
-         i = (choice - j) / SIZE;
-         if (choice > SIZE * SIZE || choice <= 0 || a[i][j] != 0) {
-            printf("yanlis secim, oyuncu %d tekrar deneyin: ", player);
+         j = secim % SIZE- 1;
+         i = (secim - j) / SIZE;
+         if (secim > SIZE * SIZE || secim <= 0 || a[i][j] != 0) {
+            printf("yanlis secim, oyuncu %d tekrar deneyin: ", oyuncu);
             continue;
          }
          else {
-            a[i][j] = player;
+            a[i][j] = oyuncu;
             break;
          }
       } while(1);
-        player = (player == 1) ? 2 : 1;
+        oyuncu = (oyuncu == 1) ? 2 : 1;
    }
-   print_game();
-   if (result == -1)
+   oyun();
+   if (sonuc == -1)
       printf("oyun bitti ,kazanan yok");
    else
-      printf("oyuncu %d kazandi tebrikler", result);
+      printf("oyuncu %d kazandi tebrikler", sonuc);
    return 0;
 }
 
-void print_game()
+void oyun()
 {
    int i, j;
  
@@ -59,7 +60,7 @@ void print_game()
    }
 }
 
-int check_status(void)
+int kontrol(void)
 {
    int i, j, k;
    int count;
@@ -100,3 +101,4 @@ int check_status(void)
       return -1;
    return 0;
 }
+
